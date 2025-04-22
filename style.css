@@ -12,7 +12,7 @@ nav a:hover{color:#ddd;}
 /*Main Content Styling*/
 main{padding: 20px;}
 section{margin-bottom: 40px;}
-section h2{font-size: 1.8em;color: #a0522d;margin-bottom: 1em;border-bottom: 2px solid #d2b48c;padding-bottom: 0.5em;}
+section h2{font-size: 1.6em;color: #a0522d;margin-bottom: 1em;border-bottom: 2px solid #d2b48c;padding-bottom: 0.5em;}
 /*Photo Grid Styling*/
 .photo-grid{display: flex;flex-wrap:wrap;gap: 15px;justify-content: center;padding: 15px;background-color: #f9f9f9;border: 1px solid #ddd;border-radius: 8px;}
 .photo-grid img{width: 100%;height: auto;max-width:300px;max-height: 200px;object-fit: cover;border-radius: 8px;/*Slightly Rounded corners*/box-shadow: 3px 3px 15px rgba(0, 0, 0.08);/*Subtle shadow*/transition: transform 0.2s ease-in-out;/*Smooth hover animation*/}
