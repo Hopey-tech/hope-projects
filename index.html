@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Random Quote Generator</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akan Name Generator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="sidebar">
-    <h2>Menu</h2>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </div>
-
-  <div class="main-content">
-    <div class="container">
-      <h1>Random Quote Generator</h1>
-      <div id="quote">Click below to get a random quote!</div>
-      <div class="button-container">
-        <button onclick="generateQuote()">Get Quote</button>
-      </div>
-    </div>
-    <footer>
-      <p>Made with ❤️ by Hope</p>
-    </footer>
-  </div>
-
-  <script src="script.js"></script>
+    <h1>Akan Name Generator</h1>
+    <p>In Ghanaian culture, particularly among the Akan people, names are often given based on the day of the week a person is born.
+        Each day has a corresponding name for males and females, believed to influence the character of the individual. 
+        This tool will help you discover your Akan name based on your birthdate and gender.
+      </p>
+    <form id="akanForm">
+        <label for="birthdate">Birthdate:</label>
+        <input type="date" id="birthdate" required>
+        <label>Gender:</label>
+        <input type="radio"name="gender" value="male" required>Male
+        <input type="radio"name="gender"value="female"required>Female
+        <br>
+        <button type="submit">Get my akan name</button>
+ </form>
+ <div id="result"></div>
+ <script src="script.js"></script>
 </body>
 </html>

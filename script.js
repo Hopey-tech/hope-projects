@@ -1,62 +1,69 @@
-const quotes = [
-    "The only way to do great work is to love what you do. – Steve Jobs",
-    "Success is not the key to happiness. Happiness is the key to success. – Albert Schweitzer",
-    "Life is 10% what happens to us and 90% how we react to it. – Charles R. Swindoll",
-    "Your time is limited, so don’t waste it living someone else’s life. – Steve Jobs",
-    "The best time to plant a tree was 20 years ago. The second best time is now. – Chinese Proverb",
-    "The future belongs to those who believe in the beauty of their dreams. – Eleanor Roosevelt",
-    "It does not matter how slowly you go as long as you do not stop. – Confucius",
-    "You are never too old to set another goal or to dream a new dream. – C.S. Lewis",
-    "The only limit to our realization of tomorrow will be our doubts of today. – Franklin D. Roosevelt",
-    "Act as if what you do makes a difference. It does. – William James",
-    "Success usually comes to those who are too busy to be looking for it. – Henry David Thoreau"
-];
+console.log("Script is loaded and running.");
 
-const backgrounds = [
-    "url('https://i.imgur.com/zB5fzgL.jpeg')",
-    "url('https://i.imgur.com/DYXLsoB.jpeg')",
-    "url('https://i.imgur.com/Qvqr861.jpeg')",
-    "url('https://i.imgur.com/9Qp0GV0.jpeg')",
-    "url('https://i.imgur.com/QTsdbgC.jpeg')",
-    "url('https://i.imgur.com/M762ndO.jpeg')",
-    "url('https://i.imgur.com/EbNOWMa.jpeg')",
-    "url('https://i.imgur.com/Z0ggLRt.jpeg')", // Corrected
-    "url('https://i.imgur.com/gRTvH1N.jpeg')"  // Corrected
-];
+document.getElementById('akanForm').addEventListener('submit', function (event) {
+  event.preventDefault(); // Prevent form submission
+  console.log("Form submitted.");
 
-let backgroundIndex = 0; // Initialize a counter for the backgrounds
+  const birthdate = document.getElementById('birthdate').value;
+  console.log("Birthdate input value:", birthdate);
 
-function generateQuote() {
-    const randomIndex = Math.floor(Math.random() * quotes.length);
-    console.log("Random Index:", randomIndex); // Debugging
+  const day = parseInt(birthdate.split("-")[2]);
+  const month = parseInt(birthdate.split("-")[1]);
+  const year = parseInt(birthdate.split("-")[0]);
+  console.log("Parsed day:", day, "Parsed month:", month, "Parsed year:", year);
 
-    // Update the quote text
-    document.getElementById('quote').textContent = quotes[randomIndex];
+  const genderInput = document.querySelector('input[name="gender"]:checked');
+  console.log("Gender input:", genderInput ? genderInput.value : "No gender selected");
 
-    // Change the container's background in order
-    const container = document.querySelector('.container');
-    container.style.backgroundImage = backgrounds[backgroundIndex];
+  // Input validation
+  if (isNaN(day) || day < 1 || day > 31) {
+    alert("Please enter a valid day (1-31).");
+    console.log("Invalid day input.");
+    return;
+  }
 
-    // Increment the background index and reset if it exceeds the array length
-    backgroundIndex = (backgroundIndex + 1) % backgrounds.length;
-}
+  if (isNaN(month) || month < 1 || month > 12) {
+    alert("Please enter a valid month (1-12).");
+    console.log("Invalid month input.");
+    return;
+  }
 
-const form = document.getElementById('quoteForm');
-form.addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent page reload
-    const quote = document.getElementById('favoriteQuote').value;
+  if (!genderInput) {
+    alert("Please select your gender.");
+    console.log("No gender selected.");
+    return;
+  }
 
-    if (quote) {
-        // Get existing quotes from localStorage
-        const storedQuotes = JSON.parse(localStorage.getItem('favoriteQuotes')) || [];
-        
-        // Add the new quote
-        storedQuotes.push(quote);
+  const gender = genderInput.value;
+  console.log("Selected gender:", gender);
 
-        // Save back to localStorage
-        localStorage.setItem('favoriteQuotes', JSON.stringify(storedQuotes));
+  // Extract century (CC) and year (YY)
+  const CC = Math.floor(year / 100);
+  const YY = year % 100;
+  const MM = month;
+  const DD = day;
+  console.log("Century (CC):", CC, "Year (YY):", YY, "Month (MM):", MM, "Day (DD):", DD);
 
-        alert(`Thank you for sharing your favorite quote: "${quote}"`);
-        form.reset(); // Clear the form
-    }
+  // Akan name formula:
+  const d = Math.floor(((4 * CC - 2 * CC - 1) + (5 * YY) + Math.floor(26 * (MM + 1) / 10) + DD) % 7);
+  console.log("Raw day index (d):", d);
+
+  const dayIndex = ((d + 7) % 7); // Ensure it's a positive index between 0–6
+  console.log("Final day index (dayIndex):", dayIndex);
+
+  const maleNames = ["Kwasi", "Kwadwo", "Kwabena", "Kwaku", "Yaw", "Kofi", "Kwame"];
+  const femaleNames = ["Akosua", "Adwoa", "Abenaa", "Akua", "Yaa", "Afua", "Ama"];
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  let akanName = "";
+  if (gender === "male") {
+    akanName = maleNames[dayIndex];
+  } else {
+    akanName = femaleNames[dayIndex];
+  }
+
+  console.log("Generated Akan name:", akanName);
+
+  document.getElementById('result').innerText =
+    `You were born on a ${daysOfWeek[dayIndex]}. Your Akan name is: ${akanName}`;
 });
